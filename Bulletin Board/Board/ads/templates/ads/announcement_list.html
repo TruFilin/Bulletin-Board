@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список объявлений</title>
+</head>
+<body>
+    <h1>Список объявлений</h1>
+
+    {% if user.is_authenticated %}
+        <p>Привет, {{ user.username }}!
+            <a href="{% url 'logout' %}">Выход</a> |
+            <a href="{% url 'user_responses' %}">Мои отклики</a>
+        </p>
+    {% else %}
+        <p><a href="{% url 'account_login' %}">Войти</a></p>
+    {% endif %}
+
+    <a href="{% url 'create_announcement' %}">Создать новое объявление</a>
+   <ul>
+    {% for announcement in announcements %}
+        <li>
+            <strong>{{ announcement.title }}</strong><br>
+            {{ announcement.content }}<br>
+            {% if announcement.image %}
+                <img src="{{ announcement.image.url }}" alt="Изображение" style="max-width: 200px;"><br>
+            {% endif %}
+            {% if announcement.video %}
+                <video width="320" height="240" controls>
+                    <source src="{{ announcement.video.url }}" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video><br>
+            {% endif %}
+            <em>Категория: {{ announcement.get_category_display }}</em><br>
+            <a href="{% url 'edit_announcement' announcement.pk %}">Редактировать</a>
+            <a href="{% url 'delete_announcement' announcement.pk %}">Удалить</a>
+            <a href="{% url 'respond_to_announcement' announcement.pk %}">Откликнуться</a>
+        </li>
+    {% empty %}
+        <li>Нет объявлений.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

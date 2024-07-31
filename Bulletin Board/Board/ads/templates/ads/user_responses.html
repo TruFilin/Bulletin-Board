@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои отклики</title>
+</head>
+<body>
+    <h1>Мои отклики</h1>
+
+    <form method="GET" action="">
+        <label for="announcement_id">Фильтровать по объявлению:</label>
+        <select name="announcement_id" id="announcement_id">
+            <option value="">Все объявления</option>
+            {% for announcement in announcements %}
+                <option value="{{ announcement.id }}"{% if announcement.id|stringformat:"s" == request.GET.announcement_id %} selected{% endif %}>
+                    {{ announcement.title }}
+                </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Фильтровать</button>
+    </form>
+
+    <ul>
+        {% for response in responses %}
+            <li>
+                <strong>Отклик на: "{{ response.announcement.title }}"</strong><br>
+                {{ response.content }}<br>
+                <em>Дата: {{ response.created_at }}</em><br>
+                <a href="{% url 'delete_response' response.pk %}">Удалить</a>
+            </li>
+        {% empty %}
+            <li>Нет откликов.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'announcement_list' %}">Назад к списку объявлений</a>
+</body>
+</html>

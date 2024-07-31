@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отклик на "{{ announcement.title }}"</title>
+</head>
+<body>
+    <h1>Отклик на "{{ announcement.title }}"</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить отклик</button>
+    </form>
+    <a href="{% url 'announcement_list' %}">Назад к списку объявлений</a>
+</body>
+</html>

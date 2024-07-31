@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение удаления отклика</title>
+</head>
+<body>
+    <h1>Подтверждение удаления отклика</h1>
+    <p>Вы уверены, что хотите удалить отклик на объявление "<strong>{{ response.announcement.title }}</strong>"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+        <a href="{% url 'user_responses' %}">Отменить</a>
+    </form>
+</body>
+</html>

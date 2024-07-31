@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список новостей</title>
+</head>
+<body>
+    <h1>Список новостей</h1>
+    <a href="{% url 'create_news' %}">Создать новость</a>
+    <ul>
+        {% for news_item in news %}
+            <li>
+                <strong>{{ news_item.title }}</strong><br>
+                {{ news_item.content }}<br>
+                <em>Дата: {{ news_item.created_at }}</em><br>
+            </li>
+        {% empty %}
+            <li>Нет новостей.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'announcement_list' %}">Назад к списку объявлений</a>
+</body>
+</html>

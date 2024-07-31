@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+    <h1>Добро пожаловать на наш сайт!</h1>
+    {% if user.is_authenticated %}
+        <p>
+            <a href="{% url 'announcement_list' %}">Перейти к объявлениям</a> |
+            <a href="{% url 'account_logout' %}">Выход</a> |
+            <a href="{% url 'user_responses' %}">Мои отклики</a>
+        </p>
+    {% else %}
+        <p>
+            <a href="{% url 'account_login' %}">Войти в личный кабинет</a> |
+            <a href="{% url 'account_signup' %}">Регистрация</a>
+        </p>
+    {% endif %}
+</body>
+</html>
